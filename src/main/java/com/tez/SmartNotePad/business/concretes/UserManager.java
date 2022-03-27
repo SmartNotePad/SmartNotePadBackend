@@ -8,6 +8,7 @@ import com.tez.SmartNotePad.business.requests.loginRequest.LoginUserRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateUserRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
 import com.tez.SmartNotePad.core.utilities.mapping.ModelMapperService;
+import com.tez.SmartNotePad.core.utilities.results.DataResult;
 import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
 import com.tez.SmartNotePad.core.utilities.results.SuccessResult;
@@ -32,12 +33,13 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public Result add(CreateUserRequest createUserRequest) throws BusinessException {
+    public DataResult<UserDto> add(CreateUserRequest createUserRequest) throws BusinessException {
         checkMailExist(createUserRequest.getMail());
         User user=this.modelMapperService.forRequest().map(createUserRequest,User.class);
+        UserDto userDto=this.modelMapperService.forDto().map(user,UserDto.class);
 
         this.userDao.save(user);
-        return new SuccessResult("User created");
+        return new SuccessDataResult<>(userDto,"User created");
     }
 
     @Override

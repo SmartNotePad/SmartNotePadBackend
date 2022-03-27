@@ -6,13 +6,14 @@ import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
 import com.tez.SmartNotePad.business.requests.loginRequest.LoginUserRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateUserRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
+import com.tez.SmartNotePad.core.utilities.results.DataResult;
 import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
 import com.tez.SmartNotePad.entities.concretes.User;
 
 public interface UserService {
 
-    Result add(CreateUserRequest createUserRequest) throws BusinessException;
+    DataResult<UserDto> add(CreateUserRequest createUserRequest) throws BusinessException;
 
     SuccessDataResult<UserDtoList> getAll();
 

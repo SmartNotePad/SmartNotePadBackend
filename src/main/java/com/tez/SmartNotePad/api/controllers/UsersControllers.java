@@ -7,6 +7,7 @@ import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
 import com.tez.SmartNotePad.business.requests.loginRequest.LoginUserRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateUserRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
+import com.tez.SmartNotePad.core.utilities.results.DataResult;
 import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UsersControllers {
     }
 
     @PostMapping("/add")
-    public Result add(@RequestBody CreateUserRequest createUserRequest) throws BusinessException {
+    public DataResult<UserDto> add(@RequestBody CreateUserRequest createUserRequest) throws BusinessException {
         return userService.add(createUserRequest);
     }
 
