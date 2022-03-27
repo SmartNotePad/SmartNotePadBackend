@@ -49,7 +49,7 @@ public class UsersControllers {
         return userService.deleteById(id);
     }
     @PutMapping("/update")
-    public Result update(UpdateUserRequest updateUserRequest){
+    public DataResult<UserDto> update(UpdateUserRequest updateUserRequest){
         return userService.update(updateUserRequest);
     }
 

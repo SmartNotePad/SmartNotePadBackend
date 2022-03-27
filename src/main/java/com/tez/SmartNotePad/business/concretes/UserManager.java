@@ -74,22 +74,23 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public Result deleteById(int id) throws BusinessException {
+    public DataResult<UserDto> deleteById(int id) throws BusinessException {
         checkUserExistById(id);
         userDao.deleteById(id);
-        return new SuccessResult("User deleted Succesfully");
+        return new SuccessDataResult("","User deleted Succesfully");
     }
 
     @Override
-    public Result update(UpdateUserRequest updateUserRequest) {
+    public DataResult<UserDto> update(UpdateUserRequest updateUserRequest) {
 
         User user=userDao.getById(updateUserRequest.getUserId());
         user.setPassword(updateUserRequest.getPassword());
         user.setNameSurname(updateUserRequest.getNameSurname());
         //validi düşünün nerde yapcağınızı
         userDao.save(user);
+        UserDto userDto=this.modelMapperService.forDto().map(user,UserDto.class);
 
-        return new SuccessResult("Updated");
+        return new SuccessDataResult<>(userDto,"Updated");
     }
 
     @Override

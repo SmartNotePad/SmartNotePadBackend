@@ -31,7 +31,7 @@ public class User {
     @OneToMany(mappedBy = "ownerUser",fetch =FetchType.LAZY,cascade = CascadeType.DETACH)
     private List<Note> myNotes;
 
-    @ManyToMany(fetch =FetchType.LAZY)
+    @ManyToMany(fetch =FetchType.LAZY,cascade = CascadeType.DETACH)
     private List<Note>  sharedNotes;
 
 }

@@ -21,9 +21,9 @@ public interface UserService {
 
     SuccessDataResult<UserDto> getUserById(int id) throws BusinessException;
 
-    Result deleteById(int id) throws BusinessException;
+    DataResult<UserDto> deleteById(int id) throws BusinessException;
 
-    Result update(UpdateUserRequest updateUserRequest);
+    DataResult<UserDto> update(UpdateUserRequest updateUserRequest);
 
     User getUserByIdForDev(int id) throws BusinessException;
 
