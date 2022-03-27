@@ -96,6 +96,15 @@ public class UserManager implements UserService {
         return userDao.getById(id);
     }
 
+    @Override
+    public User getUserByEmail(String mail) throws BusinessException {
+        if(!userDao.existsUserByMail(mail)){
+            throw new BusinessException("Mail Should be register the system");
+        }
+
+        return userDao.findUserByMail(mail);
+    }
+
 
     private void checkUserExistById(int id) throws BusinessException {
         if(!userDao.existsById(id)){

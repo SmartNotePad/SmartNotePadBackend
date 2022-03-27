@@ -5,12 +5,14 @@ import com.tez.SmartNotePad.business.dtos.NoteDto;
 import com.tez.SmartNotePad.business.dtos.NoteDtoList;
 import com.tez.SmartNotePad.business.dtos.UserDto;
 import com.tez.SmartNotePad.business.dtos.UserDtoList;
+import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
 import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateUserRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
+import com.tez.SmartNotePad.core.utilities.results.DataResult;
 import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
 import com.tez.SmartNotePad.entities.concretes.Note;
@@ -18,6 +20,7 @@ import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 @RestController
@@ -51,6 +54,10 @@ public class NotesControllers {
     @DeleteMapping("/delete")
     public Result delete(DeleteNoteRequest deleteNoteRequest) throws BusinessException {
         return noteService.deleteById(deleteNoteRequest);
+    }
+    @PostMapping("/share")
+    public DataResult<NoteDto> shared(ShareNoteRequest shareNoteRequest) throws BusinessException {
+        return noteService.shareNote(shareNoteRequest);
     }
 
 

@@ -26,4 +26,6 @@ public interface UserService {
 
     User getUserByIdForDev(int id) throws BusinessException;
 
+    User getUserByEmail(String mail) throws BusinessException;
+
 }

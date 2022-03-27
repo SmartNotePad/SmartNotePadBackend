@@ -32,7 +32,6 @@ public class User {
     private List<Note> myNotes;
 
     @ManyToMany(fetch =FetchType.LAZY)
-    @JoinColumn(name = "participantUsers")
     private List<Note>  sharedNotes;
 
 }

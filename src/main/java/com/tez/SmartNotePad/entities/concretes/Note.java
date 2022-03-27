@@ -27,7 +27,8 @@ public class Note {
     @JoinColumn(name = "user_id")
     private User ownerUser;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "user_id")
     private List<User> participantUsers;
 
 }

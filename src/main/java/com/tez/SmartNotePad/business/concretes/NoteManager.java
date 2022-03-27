@@ -4,11 +4,13 @@ import com.tez.SmartNotePad.business.abstracts.NoteService;
 import com.tez.SmartNotePad.business.abstracts.UserService;
 import com.tez.SmartNotePad.business.dtos.NoteDto;
 import com.tez.SmartNotePad.business.dtos.NoteDtoList;
+import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
 import com.tez.SmartNotePad.core.utilities.mapping.ModelMapperService;
+import com.tez.SmartNotePad.core.utilities.results.DataResult;
 import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
 import com.tez.SmartNotePad.core.utilities.results.SuccessResult;
@@ -91,6 +93,26 @@ public class NoteManager implements NoteService {
 
         return new SuccessResult("Note Updated Succesfully");
     }
+
+    @Override
+    public DataResult<NoteDto> shareNote(ShareNoteRequest shareNoteRequest) throws BusinessException {
+        checkNoteExist(shareNoteRequest.getNoteId());
+        Note note=noteDao.getById(shareNoteRequest.getNoteId());
+        checkParticipantUser(note,shareNoteRequest.getOwnerUserId());
+        User user=userService.getUserByEmail(shareNoteRequest.getMailToShare());
+
+        User userOwner=userService.getUserByIdForDev(shareNoteRequest.getOwnerUserId());
+        userOwner.getSharedNotes().add(note);
+        user.getSharedNotes().add(note);
+        note.getParticipantUsers().add(user);
+
+        noteDao.save(note);
+
+        NoteDto noteDto=modelMapperService.forDto().map(note,NoteDto.class);
+
+        return new SuccessDataResult<>(noteDto,"Note shared successfully");
+    }
+
 
     private void checkParticipantUser(Note note,int userId)throws BusinessException{
         User user=userService.getUserByIdForDev(userId);

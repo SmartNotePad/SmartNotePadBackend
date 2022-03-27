@@ -1,11 +1,9 @@
 package com.tez.SmartNotePad.business.dtos;
 
-import com.tez.SmartNotePad.entities.concretes.Note;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 
 @Data
@@ -18,7 +16,5 @@ public class UserDtoList {
     private String mail;
 
     private String password;
-
-
 
 }

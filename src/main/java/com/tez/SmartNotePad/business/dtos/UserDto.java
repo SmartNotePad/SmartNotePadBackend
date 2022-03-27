@@ -19,4 +19,7 @@ public class UserDto {
 
     private String nameSurname;
 
+    private List<NoteDto> myNotes;
+    private List<NoteDto> sharedNotes;
+
 }
