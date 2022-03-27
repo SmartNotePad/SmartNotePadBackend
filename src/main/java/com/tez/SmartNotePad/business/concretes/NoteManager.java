@@ -100,6 +100,7 @@ public class NoteManager implements NoteService {
         Note note=noteDao.getById(shareNoteRequest.getNoteId());
         checkParticipantUser(note,shareNoteRequest.getOwnerUserId());
         User user=userService.getUserByEmail(shareNoteRequest.getMailToShare());
+        checkNoteOwner(note,shareNoteRequest.getOwnerUserId());
 
         User userOwner=userService.getUserByIdForDev(shareNoteRequest.getOwnerUserId());
         userOwner.getSharedNotes().add(note);
