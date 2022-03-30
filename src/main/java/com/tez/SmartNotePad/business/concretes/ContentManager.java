@@ -40,9 +40,8 @@ public class ContentManager implements ContentService {
 
     @Override
     public DataResult<ContentDto> add(CreateContentRequest createContentRequest) throws BusinessException {
-       Note note=noteService.getById(createContentRequest.getNoteId());
-       noteService.checkParticipantUsers(note,createContentRequest.getUserId());
-
+      // Note note=noteService.getById(createContentRequest.getNoteId());
+       //noteService.checkParticipantUsers(note,createContentRequest.getUserId());
         Content content=modelMapperService.forRequest().map(createContentRequest,Content.class);
 
         content.setCreatedDate(LocalDate.now());
@@ -73,6 +72,7 @@ public class ContentManager implements ContentService {
 
     @Override
     public DataResult<ContentDto> deleteById(int id) throws BusinessException {
+
         return null;
     }
 
@@ -104,6 +104,8 @@ public class ContentManager implements ContentService {
     public Content getById(int id) {
         return contentDao.getById(id);
     }
+
+   //private void
 
 
 }

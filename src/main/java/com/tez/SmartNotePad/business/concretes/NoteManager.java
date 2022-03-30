@@ -104,7 +104,7 @@ public class NoteManager implements NoteService {
         User userOwner=userService.getUserByIdForDev(shareNoteRequest.getOwnerUserId());
         user.getSharedNotes().add(note);
         //duruma göre ekle bu satırı
-        note.getParticipantUsers().add(user);
+        //note.getParticipantUsers().add(user);
 
         noteDao.save(note);
 

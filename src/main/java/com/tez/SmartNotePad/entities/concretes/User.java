@@ -1,5 +1,6 @@
 package com.tez.SmartNotePad.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,13 +31,13 @@ public class User {
     @Column(name = "user_password")
     private String password;
 
-    @OneToMany(mappedBy = "ownerUser")
+    @OneToMany(mappedBy = "ownerUser",cascade = CascadeType.DETACH)
     private List<Note> myNotes=new ArrayList<>();
 
-    @ManyToMany(mappedBy = "participantUsers")
+    @ManyToMany(mappedBy = "participantUsers",cascade = CascadeType.DETACH)
     private List<Note> sharedNotes=new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.DETACH)
     private List<Content> contents=new ArrayList<>();
 
 }

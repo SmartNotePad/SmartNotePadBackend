@@ -16,6 +16,7 @@ import com.tez.SmartNotePad.dataAccess.UserDao;
 import com.tez.SmartNotePad.entities.concretes.Note;
 import com.tez.SmartNotePad.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class UserManager implements UserService {
 
 
     @Autowired
-    public UserManager(UserDao userDao, ModelMapperService modelMapperService, NoteService noteService) {
+    public UserManager(UserDao userDao, ModelMapperService modelMapperService,@Lazy NoteService noteService) {
         this.userDao = userDao;
         this.modelMapperService = modelMapperService;
         this.noteService = noteService;

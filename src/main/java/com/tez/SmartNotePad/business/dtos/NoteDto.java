@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 public class NoteDto {
     private int noteId;
-    private int ownerUserId;
-    private List<User> participantUsersId;
     private List<ContentDto> contentsContentDtos;
+    private List<UserDtoList> participantUsersUserId;
 }
