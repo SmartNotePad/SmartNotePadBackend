@@ -1,9 +1,6 @@
 package com.tez.SmartNotePad.business.abstracts;
 
-import com.tez.SmartNotePad.business.dtos.NoteDto;
-import com.tez.SmartNotePad.business.dtos.NoteDtoList;
-import com.tez.SmartNotePad.business.dtos.UserDto;
-import com.tez.SmartNotePad.business.dtos.UserDtoList;
+import com.tez.SmartNotePad.business.dtos.*;
 import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
@@ -14,6 +11,8 @@ import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
 import com.tez.SmartNotePad.core.utilities.results.DataResult;
 import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
+import com.tez.SmartNotePad.entities.concretes.Content;
+import com.tez.SmartNotePad.entities.concretes.Note;
 
 import java.util.List;
 
@@ -28,5 +27,18 @@ public interface NoteService {
     Result update(UpdateNoteRequest updateNoteRequest) throws BusinessException;
 
     DataResult<NoteDto> shareNote(ShareNoteRequest shareNoteRequest) throws BusinessException;
+
+    DataResult<List<NoteDtoList>>  getNotesByOwnerUserId(int id)throws BusinessException;
+
+    DataResult<List<ContentDto>> getAllContentInNoteByNoteId(int id)throws BusinessException;
+
+    void checkParticipantUsers(Note note, int userId)throws BusinessException;
+    void checkNoteOwners(Note note,int userId) throws BusinessException;
+    void checkNoteExists(int id) throws BusinessException;
+
+    Note getById(int id)throws BusinessException;
+
+
+   // DataResult<ContentDto> getContentsByNoteId(int id)throws BusinessException;
 
 }

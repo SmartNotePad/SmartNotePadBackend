@@ -15,5 +15,4 @@ public class UserDtoList {
 
     private String mail;
 
-
 }

@@ -1,5 +1,6 @@
 package com.tez.SmartNotePad.business.abstracts;
 
+import com.tez.SmartNotePad.business.dtos.NoteDtoList;
 import com.tez.SmartNotePad.business.dtos.UserDto;
 import com.tez.SmartNotePad.business.dtos.UserDtoList;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
@@ -11,11 +12,13 @@ import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
 import com.tez.SmartNotePad.entities.concretes.User;
 
+import java.util.List;
+
 public interface UserService {
 
     DataResult<UserDto> add(CreateUserRequest createUserRequest) throws BusinessException;
 
-    SuccessDataResult<UserDtoList> getAll();
+    SuccessDataResult<List<UserDtoList>> getAll();
 
     SuccessDataResult<UserDto>login(LoginUserRequest loginUserRequest) throws BusinessException;
 
@@ -28,5 +31,6 @@ public interface UserService {
     User getUserByIdForDev(int id) throws BusinessException;
 
     User getUserByEmail(String mail) throws BusinessException;
+    DataResult<NoteDtoList> getNotesByParticipantUserId(int id)throws BusinessException;
 
 }

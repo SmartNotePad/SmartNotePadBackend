@@ -1,6 +1,8 @@
 package com.tez.SmartNotePad.business.concretes;
 
+import com.tez.SmartNotePad.business.abstracts.NoteService;
 import com.tez.SmartNotePad.business.abstracts.UserService;
+import com.tez.SmartNotePad.business.dtos.NoteDtoList;
 import com.tez.SmartNotePad.business.dtos.UserDto;
 import com.tez.SmartNotePad.business.dtos.UserDtoList;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
@@ -9,10 +11,9 @@ import com.tez.SmartNotePad.business.requests.updateRequests.UpdateUserRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
 import com.tez.SmartNotePad.core.utilities.mapping.ModelMapperService;
 import com.tez.SmartNotePad.core.utilities.results.DataResult;
-import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
-import com.tez.SmartNotePad.core.utilities.results.SuccessResult;
 import com.tez.SmartNotePad.dataAccess.UserDao;
+import com.tez.SmartNotePad.entities.concretes.Note;
 import com.tez.SmartNotePad.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,14 @@ public class UserManager implements UserService {
 
     private final UserDao userDao;
     private final ModelMapperService modelMapperService;
+    private final NoteService noteService;
+
 
     @Autowired
-    public UserManager(UserDao userDao, ModelMapperService modelMapperService) {
+    public UserManager(UserDao userDao, ModelMapperService modelMapperService, NoteService noteService) {
         this.userDao = userDao;
         this.modelMapperService = modelMapperService;
+        this.noteService = noteService;
     }
 
     @Override
@@ -43,15 +47,14 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public SuccessDataResult<UserDtoList> getAll() {
+    public SuccessDataResult<List<UserDtoList>> getAll() {
         List<User> result = userDao.findAll();
 
         List<UserDtoList> response = result.stream()
                 .map(user -> this.modelMapperService.forDto().map(user, UserDtoList.class))
                 .collect(Collectors.toList());
 
-        return new SuccessDataResult(response, "Users are listed successfuly.");
-
+        return new SuccessDataResult<>(response, "Users are listed successfuly.");
     }
 
     @Override
@@ -77,7 +80,7 @@ public class UserManager implements UserService {
     public DataResult<UserDto> deleteById(int id) throws BusinessException {
         checkUserExistById(id);
         userDao.deleteById(id);
-        return new SuccessDataResult("","User deleted Succesfully");
+        return new SuccessDataResult<>("User deleted Succesfully");
     }
 
     @Override
@@ -108,6 +111,20 @@ public class UserManager implements UserService {
         return userDao.findUserByMail(mail);
     }
 
+    @Override
+    public DataResult<NoteDtoList> getNotesByParticipantUserId(int id) throws BusinessException {
+        checkUserExistById(id);
+        User user=userDao.getById(id);
+        List<Note> result=user.getSharedNotes();
+
+        List<NoteDtoList> response = result.stream()
+                .map(note -> this.modelMapperService.forDto().map(note, NoteDtoList.class))
+                .collect(Collectors.toList());
+
+        return new SuccessDataResult(response,"Notes are listed");
+
+    }
+
 
     private void checkUserExistById(int id) throws BusinessException {
         if(!userDao.existsById(id)){
@@ -130,6 +147,8 @@ public class UserManager implements UserService {
            throw new BusinessException("Mail Should be Unique!");
         }
     }
+
+
 
 
 }

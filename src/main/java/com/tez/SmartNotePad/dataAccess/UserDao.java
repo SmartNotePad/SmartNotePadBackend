@@ -10,5 +10,4 @@ public interface UserDao extends JpaRepository<User,Integer> {
     boolean existsUserByMail(String mail);
     User findUserByMail(String mail);
 
-
 }

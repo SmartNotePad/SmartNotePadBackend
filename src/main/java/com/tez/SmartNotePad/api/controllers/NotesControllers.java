@@ -1,10 +1,7 @@
 package com.tez.SmartNotePad.api.controllers;
 
 import com.tez.SmartNotePad.business.abstracts.NoteService;
-import com.tez.SmartNotePad.business.dtos.NoteDto;
-import com.tez.SmartNotePad.business.dtos.NoteDtoList;
-import com.tez.SmartNotePad.business.dtos.UserDto;
-import com.tez.SmartNotePad.business.dtos.UserDtoList;
+import com.tez.SmartNotePad.business.dtos.*;
 import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
@@ -48,17 +45,30 @@ public class NotesControllers {
         return noteService.getNoteById(id);
     }
     @PutMapping("/update")
-    public Result update(UpdateNoteRequest updateNoteRequest) throws BusinessException {
+    public Result update(@RequestBody UpdateNoteRequest updateNoteRequest) throws BusinessException {
         return noteService.update(updateNoteRequest);
     }
     @DeleteMapping("/delete")
-    public Result delete(DeleteNoteRequest deleteNoteRequest) throws BusinessException {
+    public Result delete(@RequestBody DeleteNoteRequest deleteNoteRequest) throws BusinessException {
         return noteService.deleteById(deleteNoteRequest);
     }
     @PostMapping("/share")
-    public DataResult<NoteDto> shared(ShareNoteRequest shareNoteRequest) throws BusinessException {
+    public DataResult<NoteDto> shared(@RequestBody ShareNoteRequest shareNoteRequest) throws BusinessException {
         return noteService.shareNote(shareNoteRequest);
     }
+    @PostMapping("get-all-by-owner-user-id{id}")
+    public DataResult<List<NoteDtoList>> getNotesByOwnerUserId(@RequestParam int id) throws BusinessException {
+        return noteService.getNotesByOwnerUserId(id);
+    }
+
+   /* @PostMapping("get-all-contens-by-note-id{id}")
+    public DataResult<ContentDto> getContentsByNoteId(@RequestParam int id) throws BusinessException {
+        return noteService.getContentsByNoteId(id);
+    }*/
+   @PostMapping("/get-all-contents-by-note-id-{id}")
+   public DataResult<List<ContentDto>> getAllContentInNoteByNoteId(@RequestParam int id) throws BusinessException {
+       return noteService.getAllContentInNoteByNoteId(id);
+   }
 
 
 

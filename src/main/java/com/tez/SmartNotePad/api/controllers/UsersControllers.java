@@ -1,6 +1,7 @@
 package com.tez.SmartNotePad.api.controllers;
 
 import com.tez.SmartNotePad.business.abstracts.UserService;
+import com.tez.SmartNotePad.business.dtos.NoteDtoList;
 import com.tez.SmartNotePad.business.dtos.UserDto;
 import com.tez.SmartNotePad.business.dtos.UserDtoList;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/users")
@@ -32,7 +34,7 @@ public class UsersControllers {
     }
 
     @GetMapping("/get-all")
-    public SuccessDataResult<UserDtoList> getAll(){
+    public SuccessDataResult<List<UserDtoList>>getAll(){
         return userService.getAll();
     }
 
@@ -49,9 +51,14 @@ public class UsersControllers {
         return userService.deleteById(id);
     }
     @PutMapping("/update")
-    public DataResult<UserDto> update(UpdateUserRequest updateUserRequest){
+    public DataResult<UserDto> update(@RequestBody UpdateUserRequest updateUserRequest){
         return userService.update(updateUserRequest);
     }
+    @PostMapping("get-all-by-participant-user-id{id}")
+    public DataResult<NoteDtoList> getNotesByParticipantUserId(@RequestParam int id) throws BusinessException {
+        return userService.getNotesByParticipantUserId(id);
+    }
+
 
 
 }

@@ -12,6 +12,4 @@ public class CreateNoteRequest {
 
     private int ownerUserId;
 
-    private String content;
-
 }

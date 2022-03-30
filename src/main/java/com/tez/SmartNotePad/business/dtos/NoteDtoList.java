@@ -5,11 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoteDtoList {
     private int noteId;
-    private String content;
-    private UserDto userDto;
+    private UserDtoList userDtoList;
+    private List<ContentDto> contentsContentDtos;
 }
