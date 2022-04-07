@@ -34,7 +34,7 @@ public class ContentsController {
     public DataResult<ContentDto> update(@RequestBody UpdateContentRequest updateContentRequest) throws BusinessException {
         return contentService.update(updateContentRequest);
     }
-    @PostMapping("/get-all-contents-by-note-id-{id}")
+    @GetMapping("/get-all-contents-by-note-id-{id}")
     public DataResult<List<ContentDto>> getAllContentsByNoteId(@RequestParam int id) throws BusinessException {
         return contentService.getContentsByNoteId(id);
     }

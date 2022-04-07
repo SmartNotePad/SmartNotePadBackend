@@ -42,7 +42,7 @@ public class UsersControllers {
     public SuccessDataResult<UserDto> login(@RequestBody LoginUserRequest loginUserRequest) throws BusinessException {
         return userService.login(loginUserRequest);
     }
-    @PostMapping("/get-by-id{id}")
+    @GetMapping("/get-by-id{id}")
     public SuccessDataResult<UserDto> getById(@RequestParam int id) throws BusinessException {
         return userService.getUserById(id);
     }
@@ -54,7 +54,7 @@ public class UsersControllers {
     public DataResult<UserDto> update(@RequestBody UpdateUserRequest updateUserRequest){
         return userService.update(updateUserRequest);
     }
-    @PostMapping("get-all-by-participant-user-id{id}")
+    @GetMapping("get-all-by-participant-user-id{id}")
     public DataResult<NoteDtoList> getNotesByParticipantUserId(@RequestParam int id) throws BusinessException {
         return userService.getNotesByParticipantUserId(id);
     }

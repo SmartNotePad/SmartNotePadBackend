@@ -31,7 +31,7 @@ public class NotesControllers {
         this.noteService = noteService;
     }
     @PostMapping("/add")
-    public Result add(@RequestBody CreateNoteRequest createNoteRequest) throws BusinessException {
+    public DataResult<NoteDto> add(@RequestBody CreateNoteRequest createNoteRequest) throws BusinessException {
         return noteService.createNote(createNoteRequest);
     }
 
@@ -40,7 +40,7 @@ public class NotesControllers {
         return noteService.getAll();
     }
 
-    @PostMapping("/get-by-id{id}")
+    @GetMapping("/get-by-id{id}")
     public SuccessDataResult<NoteDto> getById(@RequestParam int id) throws BusinessException {
         return noteService.getNoteById(id);
     }
@@ -56,7 +56,7 @@ public class NotesControllers {
     public DataResult<NoteDto> shared(@RequestBody ShareNoteRequest shareNoteRequest) throws BusinessException {
         return noteService.shareNote(shareNoteRequest);
     }
-    @PostMapping("get-all-by-owner-user-id{id}")
+    @GetMapping("get-all-by-owner-user-id{id}")
     public DataResult<List<NoteDtoList>> getNotesByOwnerUserId(@RequestParam int id) throws BusinessException {
         return noteService.getNotesByOwnerUserId(id);
     }
@@ -65,7 +65,7 @@ public class NotesControllers {
     public DataResult<ContentDto> getContentsByNoteId(@RequestParam int id) throws BusinessException {
         return noteService.getContentsByNoteId(id);
     }*/
-   @PostMapping("/get-all-contents-by-note-id-{id}")
+   @GetMapping("/get-all-contents-by-note-id-{id}")
    public DataResult<List<ContentDto>> getAllContentInNoteByNoteId(@RequestParam int id) throws BusinessException {
        return noteService.getAllContentInNoteByNoteId(id);
    }
