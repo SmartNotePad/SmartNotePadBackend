@@ -22,6 +22,7 @@ import com.tez.SmartNotePad.entities.concretes.Note;
 import com.tez.SmartNotePad.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,11 +47,14 @@ public class NoteManager implements NoteService {
     }
 
     @Override
-    public Result createNote(CreateNoteRequest createNoteRequest) throws BusinessException {
+    public DataResult<NoteDto> createNote(CreateNoteRequest createNoteRequest) throws BusinessException {
         Note note=this.modelMapperService.forRequest().map(createNoteRequest,Note.class);
         userService.getUserByIdForDev(createNoteRequest.getOwnerUserId());
+
+        note.setNoteId(0);
         this.noteDao.save(note);
-        return new SuccessResult("Note created");
+        NoteDto noteDto=this.modelMapperService.forDto().map(note,NoteDto.class);
+        return new SuccessDataResult<>(noteDto,"Note created");
     }
 
     @Override
@@ -150,6 +154,29 @@ public class NoteManager implements NoteService {
     public Note getById(int id) throws BusinessException {
         checkNoteExist(id);
         return noteDao.getById(id);
+    }
+
+    @Override
+    public DataResult<List<NoteDto>> getAllSorted(String ascOrDesc) throws BusinessException {
+        Sort sort;
+        String value=checkIsAvailable(ascOrDesc);
+
+        sort = Sort.by(Sort.Direction.valueOf(value),"createdDate");
+
+        List<Note> result = noteDao.findAll(sort);
+
+        List<NoteDto> response = result.stream()
+                .map(note -> this.modelMapperService.forDto().map(note, NoteDto.class))
+                .collect(Collectors.toList());
+
+        return new SuccessDataResult<>(response,"Notes are listed successfully!");
+    }
+
+    private String checkIsAvailable(String ascOrDesc)throws BusinessException {
+        if(!(ascOrDesc.equals("asc") || ascOrDesc.equals("desc"))){
+            throw new BusinessException("Please select available sort ");
+        }
+        return ascOrDesc.toUpperCase();
     }
 
     private void checkParticipantUser(Note note,int userId)throws BusinessException{

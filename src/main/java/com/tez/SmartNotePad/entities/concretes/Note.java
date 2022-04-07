@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class Note {
     @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User ownerUser;
+
+    @Column(name = "created_date")
+    private LocalDate createdDate;
 
     @ManyToMany
     private List<User> participantUsers=new ArrayList<>();

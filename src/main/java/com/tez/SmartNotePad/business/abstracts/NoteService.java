@@ -17,7 +17,7 @@ import com.tez.SmartNotePad.entities.concretes.Note;
 import java.util.List;
 
 public interface NoteService {
-    Result createNote(CreateNoteRequest createNoteRequest) throws BusinessException;
+    DataResult<NoteDto> createNote(CreateNoteRequest createNoteRequest) throws BusinessException;
 
     SuccessDataResult<List<NoteDtoList>>getAll();
     SuccessDataResult<NoteDto> getNoteById(int id) throws BusinessException;
@@ -39,6 +39,7 @@ public interface NoteService {
     Note getById(int id)throws BusinessException;
 
 
+    DataResult<List<NoteDto>> getAllSorted(String ascOrDesc)throws BusinessException;
    // DataResult<ContentDto> getContentsByNoteId(int id)throws BusinessException;
 
 }
