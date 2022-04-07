@@ -41,9 +41,9 @@ public class UserManager implements UserService {
     public DataResult<UserDto> add(CreateUserRequest createUserRequest) throws BusinessException {
         checkMailExist(createUserRequest.getMail());
         User user=this.modelMapperService.forRequest().map(createUserRequest,User.class);
-        UserDto userDto=this.modelMapperService.forDto().map(user,UserDto.class);
 
         this.userDao.save(user);
+        UserDto userDto=this.modelMapperService.forDto().map(user,UserDto.class);
         return new SuccessDataResult<>(userDto,"User created");
     }
 
@@ -113,7 +113,7 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public DataResult<NoteDtoList> getNotesByParticipantUserId(int id) throws BusinessException {
+    public DataResult<List<NoteDtoList>> getNotesByParticipantUserId(int id) throws BusinessException {
         checkUserExistById(id);
         User user=userDao.getById(id);
         List<Note> result=user.getSharedNotes();
@@ -122,9 +122,11 @@ public class UserManager implements UserService {
                 .map(note -> this.modelMapperService.forDto().map(note, NoteDtoList.class))
                 .collect(Collectors.toList());
 
-        return new SuccessDataResult(response,"Notes are listed");
+        return new SuccessDataResult<>(response,"Notes are listed");
 
     }
+
+
 
 
     private void checkUserExistById(int id) throws BusinessException {

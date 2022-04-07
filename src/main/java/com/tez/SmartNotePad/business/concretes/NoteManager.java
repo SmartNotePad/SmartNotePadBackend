@@ -25,6 +25,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +53,8 @@ public class NoteManager implements NoteService {
     public DataResult<NoteDto> createNote(CreateNoteRequest createNoteRequest) throws BusinessException {
         Note note=this.modelMapperService.forRequest().map(createNoteRequest,Note.class);
         userService.getUserByIdForDev(createNoteRequest.getOwnerUserId());
+        note.setCreatedDate(Timestamp.from(Instant.now()));
+        note.setModifiedDate(Timestamp.from(Instant.now()));
 
         note.setNoteId(0);
         this.noteDao.save(note);
@@ -92,6 +97,7 @@ public class NoteManager implements NoteService {
         checkNoteExist(updateNoteRequest.getNoteId());
         Note note=noteDao.getById(updateNoteRequest.getNoteId());
         checkParticipantUser(note, updateNoteRequest.getUserId());
+        note.setModifiedDate(Timestamp.from(Instant.now()));
 
         noteDao.save(note);
 
@@ -106,10 +112,11 @@ public class NoteManager implements NoteService {
         checkNoteOwner(note,shareNoteRequest.getOwnerUserId());
 
         User userOwner=userService.getUserByIdForDev(shareNoteRequest.getOwnerUserId());
-        user.getSharedNotes().add(note);
-        //duruma göre ekle bu satırı
-        //note.getParticipantUsers().add(user);
 
+       // user.getSharedNotes().add(note);
+        //duruma göre ekle bu satırı
+        note.getParticipantUsers().add(user);
+        note.getParticipantUsers().add(userOwner);
         noteDao.save(note);
 
         NoteDto noteDto=modelMapperService.forDto().map(note,NoteDto.class);

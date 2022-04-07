@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,10 @@ public class Note {
     private User ownerUser;
 
     @Column(name = "created_date")
-    private LocalDate createdDate;
+    private Timestamp createdDate;
+
+    @Column(name = "modified_date")
+    private Timestamp modifiedDate;
 
     @ManyToMany
     private List<User> participantUsers=new ArrayList<>();

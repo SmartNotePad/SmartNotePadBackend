@@ -10,6 +10,7 @@ import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
 import com.tez.SmartNotePad.core.utilities.results.DataResult;
 import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
+import com.tez.SmartNotePad.entities.concretes.Note;
 import com.tez.SmartNotePad.entities.concretes.User;
 
 import java.util.List;
@@ -31,6 +32,8 @@ public interface UserService {
     User getUserByIdForDev(int id) throws BusinessException;
 
     User getUserByEmail(String mail) throws BusinessException;
-    DataResult<NoteDtoList> getNotesByParticipantUserId(int id)throws BusinessException;
+    DataResult<List<NoteDtoList>> getNotesByParticipantUserId(int id)throws BusinessException;
+
+
 
 }

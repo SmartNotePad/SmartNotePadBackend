@@ -24,7 +24,7 @@ public interface ContentService {
 
     DataResult<ContentDto> deleteById(int id) throws BusinessException;
 
-    DataResult<ContentDto> update(UpdateContentRequest updateContentRequest);
+    DataResult<ContentDto> update(UpdateContentRequest updateContentRequest) throws BusinessException;
 
     DataResult<List<ContentDto>> getContentsByNoteId(int id)throws BusinessException;
 

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -19,6 +20,10 @@ public class ContentDto {
     private int noteId;
 
     private String context;
+
+    private Timestamp createdDate;
+
+    private Timestamp modifiedDate;
 
     @Min(0)
     @Max(2)

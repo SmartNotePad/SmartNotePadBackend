@@ -55,7 +55,7 @@ public class UsersControllers {
         return userService.update(updateUserRequest);
     }
     @GetMapping("get-all-by-participant-user-id{id}")
-    public DataResult<NoteDtoList> getNotesByParticipantUserId(@RequestParam int id) throws BusinessException {
+    public DataResult<List<NoteDtoList>> getNotesByParticipantUserId(@RequestParam int id) throws BusinessException {
         return userService.getNotesByParticipantUserId(id);
     }
 

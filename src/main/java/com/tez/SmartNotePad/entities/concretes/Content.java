@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -24,10 +25,10 @@ public class Content {
     private String context;
 
     @Column(name = "created_date")
-    private LocalDate createdDate;
+    private Timestamp createdDate;
 
     @Column(name = "modified_date")
-    private LocalDate modifiedDate;
+    private Timestamp modifiedDate;
 
     @Column(name = "type")
     private int type;
