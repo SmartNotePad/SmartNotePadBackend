@@ -26,6 +26,9 @@ public class Note {
     @Column(name = "note_id")
     private int noteId;
 
+    @Column(name = "title")
+    private String title;
+
     @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User ownerUser;

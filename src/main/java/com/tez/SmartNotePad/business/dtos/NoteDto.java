@@ -1,12 +1,10 @@
 package com.tez.SmartNotePad.business.dtos;
 
-import com.tez.SmartNotePad.entities.concretes.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -15,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class NoteDto {
     private int noteId;
+    private String title;
     private Timestamp createdDate;
     private Timestamp modifiedDate;
     private List<ContentDto> contentsContentDtos;

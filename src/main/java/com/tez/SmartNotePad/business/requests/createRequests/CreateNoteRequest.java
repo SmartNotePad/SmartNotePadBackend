@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class CreateNoteRequest {
 
     private int ownerUserId;
+    private String title;
 
 }

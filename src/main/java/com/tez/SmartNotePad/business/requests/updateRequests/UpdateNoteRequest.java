@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class UpdateNoteRequest {
     private int userId;
     private int noteId;
+    private String title;
 }

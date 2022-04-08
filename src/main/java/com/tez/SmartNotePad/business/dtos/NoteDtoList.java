@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class NoteDtoList {
     private int noteId;
+    private String title;
     private UserDtoList userDtoList;
     private List<ContentDto> contentsContentDtos;
 }

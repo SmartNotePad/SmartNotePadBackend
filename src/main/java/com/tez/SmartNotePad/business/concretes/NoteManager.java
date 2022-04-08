@@ -97,6 +97,7 @@ public class NoteManager implements NoteService {
         checkNoteExist(updateNoteRequest.getNoteId());
         Note note=noteDao.getById(updateNoteRequest.getNoteId());
         checkParticipantUser(note, updateNoteRequest.getUserId());
+        note.setTitle(updateNoteRequest.getTitle());
         note.setModifiedDate(Timestamp.from(Instant.now()));
 
         noteDao.save(note);
