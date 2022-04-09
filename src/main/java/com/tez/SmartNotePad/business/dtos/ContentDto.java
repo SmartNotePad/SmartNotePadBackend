@@ -1,5 +1,6 @@
 package com.tez.SmartNotePad.business.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class ContentDto {
 
     private int contentId;
 
-    private int userId;
+    private UserMailDto userMailDto;
 
     private int noteId;
 

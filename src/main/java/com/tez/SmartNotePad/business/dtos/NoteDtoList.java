@@ -15,4 +15,6 @@ public class NoteDtoList {
     private String title;
     private UserDtoList userDtoList;
     private List<ContentDto> contentsContentDtos;
+    private List<UserDtoList> participantUsersUserId;
+
 }
