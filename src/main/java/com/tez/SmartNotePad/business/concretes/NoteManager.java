@@ -80,18 +80,18 @@ public class NoteManager implements NoteService {
     }
 
     @Override
-    public Result deleteById(DeleteNoteRequest deleteNoteRequest) throws BusinessException {
+    public DataResult<NoteDto> deleteById(DeleteNoteRequest deleteNoteRequest) throws BusinessException {
         checkNoteExist(deleteNoteRequest.getNoteId());
         Note note=noteDao.getById(deleteNoteRequest.getNoteId());
         checkNoteOwner(note,deleteNoteRequest.getUserUserId());
 
         noteDao.deleteById(deleteNoteRequest.getNoteId());
 
-        return new SuccessResult("Note Deleted Succesfully");
+        return new SuccessDataResult<>("Note Deleted Succesfully");
     }
 
     @Override
-    public Result update(UpdateNoteRequest updateNoteRequest) throws BusinessException {
+    public DataResult<NoteDto> update(UpdateNoteRequest updateNoteRequest) throws BusinessException {
         checkNoteExist(updateNoteRequest.getNoteId());
         Note note=noteDao.getById(updateNoteRequest.getNoteId());
         checkParticipantUser(note, updateNoteRequest.getUserUserId());
@@ -100,7 +100,9 @@ public class NoteManager implements NoteService {
 
         noteDao.save(note);
 
-        return new SuccessResult("Note Updated Succesfully");
+        NoteDto response=this.modelMapperService.forDto().map(note,NoteDto.class);
+
+        return new SuccessDataResult<>(response,"Note Updated Succesfully");
     }
 
     @Override

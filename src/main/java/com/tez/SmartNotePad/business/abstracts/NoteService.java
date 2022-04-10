@@ -23,9 +23,9 @@ public interface NoteService {
     SuccessDataResult<List<NoteDto>>getAll();
     SuccessDataResult<NoteDto> getNoteById(int id) throws BusinessException;
 
-    Result deleteById(DeleteNoteRequest deleteNoteRequest) throws BusinessException;
+    DataResult<NoteDto> deleteById(DeleteNoteRequest deleteNoteRequest) throws BusinessException;
 
-    Result update(UpdateNoteRequest updateNoteRequest) throws BusinessException;
+    DataResult<NoteDto> update(UpdateNoteRequest updateNoteRequest) throws BusinessException;
 
     DataResult<NoteDto> shareNote(ShareNoteRequest shareNoteRequest) throws BusinessException;
 

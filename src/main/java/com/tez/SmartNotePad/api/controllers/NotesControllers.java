@@ -45,11 +45,11 @@ public class NotesControllers {
         return noteService.getNoteById(id);
     }
     @PutMapping("/update-note-title")
-    public Result update(@RequestBody UpdateNoteRequest updateNoteRequest) throws BusinessException {
+    public DataResult<NoteDto> update(@RequestBody UpdateNoteRequest updateNoteRequest) throws BusinessException {
         return noteService.update(updateNoteRequest);
     }
     @DeleteMapping("/delete")
-    public Result delete(@RequestBody DeleteNoteRequest deleteNoteRequest) throws BusinessException {
+    public DataResult<NoteDto> delete(@RequestBody DeleteNoteRequest deleteNoteRequest) throws BusinessException {
         return noteService.deleteById(deleteNoteRequest);
     }
     @PostMapping("/share")
