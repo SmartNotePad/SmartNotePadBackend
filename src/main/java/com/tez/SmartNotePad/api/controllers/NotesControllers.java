@@ -36,7 +36,7 @@ public class NotesControllers {
     }
 
     @GetMapping("/get-all")
-    public SuccessDataResult<List<NoteDtoList>> getAll(){
+    public SuccessDataResult<List<NoteDto>> getAll(){
         return noteService.getAll();
     }
 
@@ -44,7 +44,7 @@ public class NotesControllers {
     public SuccessDataResult<NoteDto> getById(@RequestParam int id) throws BusinessException {
         return noteService.getNoteById(id);
     }
-    @PutMapping("/update")
+    @PutMapping("/update-note-title")
     public Result update(@RequestBody UpdateNoteRequest updateNoteRequest) throws BusinessException {
         return noteService.update(updateNoteRequest);
     }
@@ -57,7 +57,7 @@ public class NotesControllers {
         return noteService.shareNote(shareNoteRequest);
     }
     @GetMapping("get-all-by-owner-user-id{id}")
-    public DataResult<List<NoteDtoList>> getNotesByOwnerUserId(@RequestParam int id) throws BusinessException {
+    public DataResult<List<NoteDto>> getNotesByOwnerUserId(@RequestParam int id) throws BusinessException {
         return noteService.getNotesByOwnerUserId(id);
     }
 

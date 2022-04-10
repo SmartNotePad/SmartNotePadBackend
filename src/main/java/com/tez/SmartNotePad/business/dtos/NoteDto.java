@@ -14,6 +14,8 @@ import java.util.List;
 public class NoteDto {
     private int noteId;
     private String title;
+    private int userUserId;
+    private String userMail;
     private Timestamp createdDate;
     private Timestamp modifiedDate;
     private List<ContentDto> contentsContentDtos;

@@ -13,7 +13,8 @@ import java.util.List;
 public class NoteDtoList {
     private int noteId;
     private String title;
-    private UserDtoList userDtoList;
+    private int userUserId;
+    private String userMail;
     private List<ContentDto> contentsContentDtos;
     private List<UserDtoList> participantUsersUserId;
 

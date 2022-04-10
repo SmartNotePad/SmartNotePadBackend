@@ -7,6 +7,7 @@ import com.tez.SmartNotePad.business.dtos.ContentDto;
 import com.tez.SmartNotePad.business.dtos.NoteDto;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateContentRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateContentRequest;
+import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteWithOutTitleRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
 import com.tez.SmartNotePad.core.utilities.mapping.ModelMapperService;
 import com.tez.SmartNotePad.core.utilities.results.DataResult;
@@ -44,6 +45,7 @@ public class ContentManager implements ContentService {
     public DataResult<ContentDto> add(CreateContentRequest createContentRequest) throws BusinessException {
       // Note note=noteService.getById(createContentRequest.getNoteId());
        //noteService.checkParticipantUsers(note,createContentRequest.getUserId());
+        UpdateNoteWithOutTitleRequest updateNoteWithOutTitleRequest=new UpdateNoteWithOutTitleRequest(createContentRequest.getUserId(), createContentRequest.getNoteId());
         noteService.getNotesByOwnerUserId(createContentRequest.getUserId());
         Content content=modelMapperService.forRequest().map(createContentRequest,Content.class);
 
@@ -51,6 +53,8 @@ public class ContentManager implements ContentService {
         content.setModifiedDate(Timestamp.from(Instant.now()));
 
         contentDao.save(content);
+
+        noteService.updateNote(updateNoteWithOutTitleRequest);
 
         ContentDto result=this.modelMapperService.forDto().map(content,ContentDto.class);
 
@@ -93,7 +97,10 @@ public class ContentManager implements ContentService {
         content.setContext(updateContentRequest.getContext());
         content.setModifiedDate(Timestamp.from(Instant.now()));
 
+        UpdateNoteWithOutTitleRequest updateNoteWithOutTitleRequest=new UpdateNoteWithOutTitleRequest(updateContentRequest.getUserId(), updateContentRequest.getNoteId());
+
         contentDao.save(content);
+        noteService.updateNote(updateNoteWithOutTitleRequest);
 
         ContentDto result=this.modelMapperService.forDto().map(content,ContentDto.class);
 

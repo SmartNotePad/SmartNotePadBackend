@@ -10,6 +10,7 @@ import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteRequest;
+import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteWithOutTitleRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
 import com.tez.SmartNotePad.core.utilities.mapping.ModelMapperService;
 import com.tez.SmartNotePad.core.utilities.results.DataResult;
@@ -63,11 +64,11 @@ public class NoteManager implements NoteService {
     }
 
     @Override
-    public SuccessDataResult<List<NoteDtoList>> getAll() {
+    public SuccessDataResult<List<NoteDto>> getAll() {
         List<Note> result = noteDao.findAll();
 
-        List<NoteDtoList> response = result.stream()
-                .map(note -> this.modelMapperService.forDto().map(note, NoteDtoList.class))
+        List<NoteDto> response = result.stream()
+                .map(note -> this.modelMapperService.forDto().map(note, NoteDto.class))
                 .collect(Collectors.toList());
 
         return new SuccessDataResult<>(response, "Notes are listed successfuly.");
@@ -126,12 +127,12 @@ public class NoteManager implements NoteService {
     }
 
     @Override
-    public DataResult<List<NoteDtoList>> getNotesByOwnerUserId(int id) throws BusinessException {
+    public DataResult<List<NoteDto>> getNotesByOwnerUserId(int id) throws BusinessException {
         User user=userService.getUserByIdForDev(id);
         List<Note> result=noteDao.findAllByOwnerUserUserId(user.getUserId());
 
-        List<NoteDtoList> response = result.stream()
-                .map(note -> this.modelMapperService.forDto().map(note, NoteDtoList.class))
+        List<NoteDto> response = result.stream()
+                .map(note -> this.modelMapperService.forDto().map(note, NoteDto.class))
                 .collect(Collectors.toList());
 
         return new SuccessDataResult<>(response,"Notes are listed");
@@ -156,6 +157,13 @@ public class NoteManager implements NoteService {
     @Override
     public void checkNoteExists(int id) throws BusinessException {
         checkNoteExist(id);
+    }
+
+    @Override
+    public void updateNote(UpdateNoteWithOutTitleRequest updateNoteWithOutTitleRequest) throws BusinessException {
+        checkNoteExist(updateNoteWithOutTitleRequest.getNoteId());
+        Note note=noteDao.getById(updateNoteWithOutTitleRequest.getNoteId());
+        noteDao.save(note);
     }
 
     @Override
