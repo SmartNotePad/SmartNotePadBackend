@@ -49,7 +49,7 @@ public class ContentsController {
     }
 
     @DeleteMapping("/delete")
-    public DataResult<ContentDto> delete(@RequestParam int id ) throws BusinessException {
+    public DataResult<ContentDto> delete(@RequestBody int id ) throws BusinessException {
         return contentService.deleteById(id);
     }
 }
