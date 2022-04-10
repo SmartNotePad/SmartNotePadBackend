@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateNoteRequest {
-    private int userId;
+    private int userUserId;
     private int noteId;
     private String title;
 }

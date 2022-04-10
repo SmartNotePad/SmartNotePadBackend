@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeleteNoteRequest {
 
-    private int userId;
+    private int userUserId;
     private int noteId;
 
 }

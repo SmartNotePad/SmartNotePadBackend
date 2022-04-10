@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateNoteWithOutTitleRequest {
-    private int userId;
+    private int userUserId;
     private int noteId;
 }

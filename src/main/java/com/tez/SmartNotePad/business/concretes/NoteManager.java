@@ -50,10 +50,10 @@ public class NoteManager implements NoteService {
     @Override
     public DataResult<NoteDto> createNote(CreateNoteRequest createNoteRequest) throws BusinessException {
         Note note=this.modelMapperService.forRequest().map(createNoteRequest,Note.class);
-        userService.getUserByIdForDev(createNoteRequest.getUserUserId());
+       User user= userService.getUserByIdForDev(createNoteRequest.getUserUserId());
         note.setCreatedDate(Timestamp.from(Instant.now()));
         note.setModifiedDate(Timestamp.from(Instant.now()));
-
+        note.getParticipantUsers().add(user);
         note.setNoteId(0);
         this.noteDao.save(note);
         NoteDto noteDto=this.modelMapperService.forDto().map(note,NoteDto.class);
@@ -83,7 +83,7 @@ public class NoteManager implements NoteService {
     public Result deleteById(DeleteNoteRequest deleteNoteRequest) throws BusinessException {
         checkNoteExist(deleteNoteRequest.getNoteId());
         Note note=noteDao.getById(deleteNoteRequest.getNoteId());
-        checkNoteOwner(note,deleteNoteRequest.getUserId());
+        checkNoteOwner(note,deleteNoteRequest.getUserUserId());
 
         noteDao.deleteById(deleteNoteRequest.getNoteId());
 
@@ -94,7 +94,7 @@ public class NoteManager implements NoteService {
     public Result update(UpdateNoteRequest updateNoteRequest) throws BusinessException {
         checkNoteExist(updateNoteRequest.getNoteId());
         Note note=noteDao.getById(updateNoteRequest.getNoteId());
-        checkParticipantUser(note, updateNoteRequest.getUserId());
+        checkParticipantUser(note, updateNoteRequest.getUserUserId());
         note.setTitle(updateNoteRequest.getTitle());
         note.setModifiedDate(Timestamp.from(Instant.now()));
 
