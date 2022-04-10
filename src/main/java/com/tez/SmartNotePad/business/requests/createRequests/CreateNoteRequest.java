@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateNoteRequest {
 
-    private int ownerUserId;
+    private int userUserUd;
     private String title;
 
 }

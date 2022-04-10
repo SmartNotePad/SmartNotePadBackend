@@ -31,7 +31,7 @@ public class Note {
 
     @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User ownerUser;
+    private User user;
 
     @Column(name = "created_date")
     private Timestamp createdDate;
