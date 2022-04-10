@@ -16,7 +16,11 @@ public class ContentDto {
 
     private int contentId;
 
-    private UserMailDto userMailDto;
+    private int userId;
+
+    private String nameSurname;
+
+    private String mail;
 
     private int noteId;
 

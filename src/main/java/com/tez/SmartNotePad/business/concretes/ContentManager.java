@@ -52,6 +52,8 @@ public class ContentManager implements ContentService {
         content.setCreatedDate(Timestamp.from(Instant.now()));
         content.setModifiedDate(Timestamp.from(Instant.now()));
 
+        content.setContentId(0);
+
         contentDao.save(content);
 
         noteService.updateNote(updateNoteWithOutTitleRequest);
