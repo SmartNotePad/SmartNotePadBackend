@@ -86,10 +86,10 @@ public class ContentManager implements ContentService {
     @Override
     public DataResult<ContentDto> deleteById(int id) throws BusinessException {
         checkContentExists(id);
-
+        ContentDto response=this.modelMapperService.forDto().map(contentDao.getById(id),ContentDto.class);
         this.contentDao.deleteById(id);
 
-        return new SuccessDataResult<>("This content deleted ");
+        return new SuccessDataResult<>(response,"This content deleted ");
     }
 
     @Override
