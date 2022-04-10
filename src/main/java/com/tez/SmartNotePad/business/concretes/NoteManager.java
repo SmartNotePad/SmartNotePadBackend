@@ -50,7 +50,7 @@ public class NoteManager implements NoteService {
     @Override
     public DataResult<NoteDto> createNote(CreateNoteRequest createNoteRequest) throws BusinessException {
         Note note=this.modelMapperService.forRequest().map(createNoteRequest,Note.class);
-        userService.getUserByIdForDev(createNoteRequest.getUserUserUd());
+        userService.getUserByIdForDev(createNoteRequest.getUserUserId());
         note.setCreatedDate(Timestamp.from(Instant.now()));
         note.setModifiedDate(Timestamp.from(Instant.now()));
 
