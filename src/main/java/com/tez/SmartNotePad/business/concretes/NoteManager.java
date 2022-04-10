@@ -5,7 +5,6 @@ import com.tez.SmartNotePad.business.abstracts.NoteService;
 import com.tez.SmartNotePad.business.abstracts.UserService;
 import com.tez.SmartNotePad.business.dtos.ContentDto;
 import com.tez.SmartNotePad.business.dtos.NoteDto;
-import com.tez.SmartNotePad.business.dtos.NoteDtoList;
 import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteNoteRequest;
@@ -18,7 +17,6 @@ import com.tez.SmartNotePad.core.utilities.results.Result;
 import com.tez.SmartNotePad.core.utilities.results.SuccessDataResult;
 import com.tez.SmartNotePad.core.utilities.results.SuccessResult;
 import com.tez.SmartNotePad.dataAccess.NoteDao;
-import com.tez.SmartNotePad.entities.concretes.Content;
 import com.tez.SmartNotePad.entities.concretes.Note;
 import com.tez.SmartNotePad.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +50,7 @@ public class NoteManager implements NoteService {
     @Override
     public DataResult<NoteDto> createNote(CreateNoteRequest createNoteRequest) throws BusinessException {
         Note note=this.modelMapperService.forRequest().map(createNoteRequest,Note.class);
-        userService.getUserByIdForDev(createNoteRequest.getOwnerUserId());
+        userService.getUserByIdForDev(createNoteRequest.getUserUserUd());
         note.setCreatedDate(Timestamp.from(Instant.now()));
         note.setModifiedDate(Timestamp.from(Instant.now()));
 
@@ -129,7 +126,7 @@ public class NoteManager implements NoteService {
     @Override
     public DataResult<List<NoteDto>> getNotesByOwnerUserId(int id) throws BusinessException {
         User user=userService.getUserByIdForDev(id);
-        List<Note> result=noteDao.findAllByOwnerUserUserId(user.getUserId());
+        List<Note> result=noteDao.findAllByUserUserId(user.getUserId());
 
         List<NoteDto> response = result.stream()
                 .map(note -> this.modelMapperService.forDto().map(note, NoteDto.class))
@@ -198,13 +195,13 @@ public class NoteManager implements NoteService {
     private void checkParticipantUser(Note note,int userId)throws BusinessException{
         User user=userService.getUserByIdForDev(userId);
 
-       if(!note.getParticipantUsers().contains(user)|| note.getOwnerUser().getUserId()!=userId){
+       if(!note.getParticipantUsers().contains(user)|| note.getUser().getUserId()!=userId){
            throw new BusinessException("This user is not Participant of this note");
        }
     }
 
     private void checkNoteOwner(Note note,int userId) throws BusinessException {
-        if(note.getOwnerUser().getUserId()!=userId){
+        if(note.getUser().getUserId()!=userId){
             throw new BusinessException("This user is not Owner of this note");
         }
     }

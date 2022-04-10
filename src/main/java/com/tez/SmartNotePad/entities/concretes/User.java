@@ -31,7 +31,7 @@ public class User {
     @Column(name = "user_password")
     private String password;
 
-    @OneToMany(mappedBy = "ownerUser",cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.DETACH)
     private List<Note> myNotes=new ArrayList<>();
 
     @ManyToMany(mappedBy = "participantUsers",cascade = CascadeType.DETACH)
