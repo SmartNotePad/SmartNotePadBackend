@@ -53,7 +53,6 @@ public class NoteManager implements NoteService {
        User user= userService.getUserByIdForDev(createNoteRequest.getUserUserId());
         note.setCreatedDate(Timestamp.from(Instant.now()));
         note.setModifiedDate(Timestamp.from(Instant.now()));
-        note.getParticipantUsers().add(user);
         note.setNoteId(0);
         this.noteDao.save(note);
         NoteDto noteDto=this.modelMapperService.forDto().map(note,NoteDto.class);
@@ -117,7 +116,6 @@ public class NoteManager implements NoteService {
        // user.getSharedNotes().add(note);
         //duruma göre ekle bu satırı
         note.getParticipantUsers().add(user);
-        note.getParticipantUsers().add(userOwner);
         noteDao.save(note);
 
         NoteDto noteDto=modelMapperService.forDto().map(note,NoteDto.class);
@@ -129,10 +127,10 @@ public class NoteManager implements NoteService {
     public DataResult<List<NoteDto>> getNotesByOwnerUserId(int id) throws BusinessException {
         User user=userService.getUserByIdForDev(id);
         List<Note> result=noteDao.findAllByUserUserId(user.getUserId());
-
         List<NoteDto> response = result.stream()
                 .map(note -> this.modelMapperService.forDto().map(note, NoteDto.class))
                 .collect(Collectors.toList());
+
 
         return new SuccessDataResult<>(response,"Notes are listed");
     }
