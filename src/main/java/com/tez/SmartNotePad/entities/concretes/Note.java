@@ -42,7 +42,7 @@ public class Note {
     @ManyToMany
     private List<User> participantUsers=new ArrayList<>();
 
-    @OneToMany(mappedBy = "note",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "note",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Content> contents=new ArrayList<>();
 
 
