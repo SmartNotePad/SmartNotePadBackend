@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface NoteDao extends JpaRepository<Note,Integer> {
     List<Note> findAllByUserUserId(int id);
+    List<Note> findAllByParticipantUsers_UserId(int id);
 
 }

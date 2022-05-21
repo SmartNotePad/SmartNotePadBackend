@@ -136,6 +136,19 @@ public class NoteManager implements NoteService {
     }
 
     @Override
+    public DataResult<List<NoteDto>> getNotesBySharedUserId(int id) throws BusinessException {
+        User user=userService.getUserByIdForDev(id);
+        List<Note> result=noteDao.findAllByParticipantUsers_UserId(user.getUserId());
+
+        List<NoteDto> response = result.stream()
+                .map(note -> this.modelMapperService.forDto().map(note, NoteDto.class))
+                .collect(Collectors.toList());
+
+
+        return new SuccessDataResult<>(response,"Notes are listed");
+    }
+
+    @Override
     public DataResult<List<ContentDto>> getAllContentInNoteByNoteId(int id) throws BusinessException {
         checkNoteExist(id);
         return contentService.getContentsByNoteId(id);

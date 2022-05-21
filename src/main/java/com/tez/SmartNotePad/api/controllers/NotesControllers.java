@@ -60,6 +60,10 @@ public class NotesControllers {
     public DataResult<List<NoteDto>> getNotesByOwnerUserId(@RequestParam int id) throws BusinessException {
         return noteService.getNotesByOwnerUserId(id);
     }
+    @GetMapping("get-all-by-shared-notes-user-id{id}")
+    public DataResult<List<NoteDto>> getNotesBySharedUserId(@RequestParam int id) throws BusinessException {
+        return noteService.getNotesBySharedUserId(id);
+    }
 
    /* @PostMapping("get-all-contens-by-note-id{id}")
     public DataResult<ContentDto> getContentsByNoteId(@RequestParam int id) throws BusinessException {

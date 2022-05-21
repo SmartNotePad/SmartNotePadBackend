@@ -30,6 +30,7 @@ public interface NoteService {
     DataResult<NoteDto> shareNote(ShareNoteRequest shareNoteRequest) throws BusinessException;
 
     DataResult<List<NoteDto>>  getNotesByOwnerUserId(int id)throws BusinessException;
+    DataResult<List<NoteDto>>  getNotesBySharedUserId(int id)throws BusinessException;
 
     DataResult<List<ContentDto>> getAllContentInNoteByNoteId(int id)throws BusinessException;
 

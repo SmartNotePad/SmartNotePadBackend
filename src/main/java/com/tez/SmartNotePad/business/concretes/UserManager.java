@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,7 +50,7 @@ public class UserManager implements UserService {
 
     @Override
     public SuccessDataResult<List<UserDtoList>> getAll() {
-        List<User> result = userDao.findAll();
+       List<User> result = userDao.findAll();
 
         List<UserDtoList> response = result.stream()
                 .map(user -> this.modelMapperService.forDto().map(user, UserDtoList.class))
@@ -125,8 +126,6 @@ public class UserManager implements UserService {
         return new SuccessDataResult<>(response,"Notes are listed");
 
     }
-
-
 
 
     private void checkUserExistById(int id) throws BusinessException {
