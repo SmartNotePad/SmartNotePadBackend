@@ -93,7 +93,7 @@ public class NoteManager implements NoteService {
     public DataResult<NoteDto> update(UpdateNoteRequest updateNoteRequest) throws BusinessException {
         checkNoteExist(updateNoteRequest.getNoteId());
         Note note=noteDao.getById(updateNoteRequest.getNoteId());
-        checkParticipantUser(note, updateNoteRequest.getUserUserId());
+        //checkParticipantUser(note, updateNoteRequest.getUserUserId());
         note.setTitle(updateNoteRequest.getTitle());
         note.setModifiedDate(Timestamp.from(Instant.now()));
 
