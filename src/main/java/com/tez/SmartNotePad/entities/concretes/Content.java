@@ -21,7 +21,7 @@ public class Content {
     @Column(name = "content_id")
     private int contentId;
 
-    @Column(name = "context")
+    @Column(name = "context",length = 1337)
     private String context;
 
     @Column(name = "created_date")
