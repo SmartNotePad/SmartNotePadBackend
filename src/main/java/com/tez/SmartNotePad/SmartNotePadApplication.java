@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 @SpringBootApplication
 @RestControllerAdvice
 public class SmartNotePadApplication {
 
 	public static void main(String[] args) {
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+3:00"));
 		SpringApplication.run(SmartNotePadApplication.class, args);
 	}
 
@@ -28,6 +31,7 @@ public class SmartNotePadApplication {
 	public ModelMapper getModelMapper(){
 		return new ModelMapper();
 	}
+
 
 	@ExceptionHandler
 	@ResponseStatus(code= HttpStatus.BAD_REQUEST)
