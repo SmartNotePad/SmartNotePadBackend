@@ -6,6 +6,7 @@ import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
 import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteNoteRequest;
+import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteUserFromNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateUserRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
@@ -51,6 +52,10 @@ public class NotesControllers {
     @DeleteMapping("/delete")
     public DataResult<NoteDto> delete(@RequestBody DeleteNoteRequest deleteNoteRequest) throws BusinessException {
         return noteService.deleteById(deleteNoteRequest);
+    }
+    @DeleteMapping("/delete-partipitiantuser-from-note")
+    public DataResult<NoteDto> deleteUserFromNote(@RequestBody DeleteUserFromNoteRequest deleteUserFromNoteRequest) throws BusinessException {
+        return noteService.deleteUserFromNote(deleteUserFromNoteRequest);
     }
     @PostMapping("/share")
     public DataResult<NoteDto> shared(@RequestBody ShareNoteRequest shareNoteRequest) throws BusinessException {

@@ -8,6 +8,7 @@ import com.tez.SmartNotePad.business.dtos.NoteDto;
 import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteNoteRequest;
+import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteUserFromNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteWithOutTitleRequest;
 import com.tez.SmartNotePad.core.utilities.exceptions.BusinessException;
@@ -152,6 +153,19 @@ public class NoteManager implements NoteService {
     public DataResult<List<ContentDto>> getAllContentInNoteByNoteId(int id) throws BusinessException {
         checkNoteExist(id);
         return contentService.getContentsByNoteId(id);
+    }
+
+    @Override
+    public DataResult<NoteDto> deleteUserFromNote(DeleteUserFromNoteRequest deleteUserFromNoteRequest) throws BusinessException {
+        checkNoteExist(deleteUserFromNoteRequest.getNoteId());
+        Note note=noteDao.getById(deleteUserFromNoteRequest.getNoteId());
+        checkNoteOwner(note,deleteUserFromNoteRequest.getUserId());
+        User user=userService.getUserByIdForDev(deleteUserFromNoteRequest.getParticipantUsersUserId());
+
+        note.getParticipantUsers().remove(user);
+        noteDao.save(note);
+
+        return new SuccessDataResult<>("Partipitiant Deleted Succesfully");
     }
 
     @Override

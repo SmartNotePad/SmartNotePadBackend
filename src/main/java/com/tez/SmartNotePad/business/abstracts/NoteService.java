@@ -5,6 +5,7 @@ import com.tez.SmartNotePad.business.requests.ShareNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateNoteRequest;
 import com.tez.SmartNotePad.business.requests.createRequests.CreateUserRequest;
 import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteNoteRequest;
+import com.tez.SmartNotePad.business.requests.deleteRequests.DeleteUserFromNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateNoteWithOutTitleRequest;
 import com.tez.SmartNotePad.business.requests.updateRequests.UpdateUserRequest;
@@ -33,6 +34,8 @@ public interface NoteService {
     DataResult<List<NoteDto>>  getNotesBySharedUserId(int id)throws BusinessException;
 
     DataResult<List<ContentDto>> getAllContentInNoteByNoteId(int id)throws BusinessException;
+
+    DataResult<NoteDto> deleteUserFromNote(DeleteUserFromNoteRequest deleteUserFromNoteRequest) throws BusinessException;
 
     void checkParticipantUsers(Note note, int userId)throws BusinessException;
     void checkNoteOwners(Note note,int userId) throws BusinessException;
