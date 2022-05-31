@@ -51,7 +51,7 @@ public class UsersControllers {
         return userService.deleteById(id);
     }
     @PutMapping("/update")
-    public DataResult<UserDto> update(@RequestBody UpdateUserRequest updateUserRequest){
+    public DataResult<UserDto> update(@Valid @RequestBody UpdateUserRequest updateUserRequest){
         return userService.update(updateUserRequest);
     }
     @GetMapping("get-all-by-participant-user-id{id}")
